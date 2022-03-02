@@ -112,7 +112,12 @@ static voidpf ZCALLBACK fopen64_file_func (voidpf opaque, const void* filename, 
         mode_fopen = "wb";
 
     if ((filename!=NULL) && (mode_fopen != NULL))
+#ifdef __APPLE__
+        file = fopen((const char*)filename, mode_fopen);
+#else
         file = fopen64((const char*)filename, mode_fopen);
+#endif
+        
     return file;
 }
 
@@ -142,7 +147,11 @@ static long ZCALLBACK ftell_file_func (voidpf opaque, voidpf stream)
 static ZPOS64_T ZCALLBACK ftell64_file_func (voidpf opaque, voidpf stream)
 {
     ZPOS64_T ret;
+#ifdef __APPLE__
+    ret = ftello((FILE *)stream);
+#else
     ret = ftello64((FILE *)stream);
+#endif
     return ret;
 }
 
@@ -187,8 +196,11 @@ static long ZCALLBACK fseek64_file_func (voidpf  opaque, voidpf stream, ZPOS64_T
     default: return -1;
     }
     ret = 0;
-
+#ifdef __APPLE__
+    if(fseeko((FILE *)stream, offset, fseek_origin) != 0)
+#else
     if(fseeko64((FILE *)stream, offset, fseek_origin) != 0)
+#endif
                         ret = -1;
 
     return ret;
