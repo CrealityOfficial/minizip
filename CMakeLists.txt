@@ -5,6 +5,7 @@ endif()
 
 __add_real_target(minizip lib SOURCE ${minizip_files}
 							  LIB zlib
+							  DEF Z_PREFIX
 							  INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 							  )
 
