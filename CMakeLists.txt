@@ -10,4 +10,9 @@ __add_real_target(minizip lib SOURCE ${minizip_files}
 							  DEF Z_PREFIX
 							  INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 							  )
+							  
+							  							   
+if(CC_INSTALL_MINIZIP)
+	__install_directory_specif(${CMAKE_CURRENT_SOURCE_DIR}/ minizip)
+endif()
 
