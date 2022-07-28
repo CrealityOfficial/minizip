@@ -1,3 +1,5 @@
+__CC_find(Zlib)
+
 set(minizip_files crypt.h  ioapi.c  ioapi.h  mztools.c  mztools.h  unzip.c  unzip.h  zip.c  zip.h)
 if( MSVC )
   set(minizip_files ${minizip_files} iowin32.c  iowin32.h)
